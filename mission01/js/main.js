@@ -1,3 +1,4 @@
+"use strict";
 
 const user = {
   id:'asd@naver.com',
@@ -39,6 +40,7 @@ let emailPass = false;
 inputEmail.addEventListener('input',()=>{
   valueEmail = inputEmail.value;
   console.log(valueEmail)
+
   if(emailReg(valueEmail)){
     emailPass = true;
     errorMessageId.classList.remove('is--invalid')
@@ -59,21 +61,19 @@ let passwordPass = false;
 inputPw.addEventListener('input',()=>{
   valuePw = inputPw.value;
   console.log(valuePw)
-  valuePw = inputPw.value;
+
   if(pwReg(valuePw)){
     errorMessagePw.classList.remove('is--invalid')
     passwordPass = true;
   }else{
     errorMessagePw.classList.add('is--invalid')
     passwordPass = false;
-    // console.log(valuePw ===  user.pw)
   }
   return passwordPass
 })
 
 // 로그인 버튼을 클릭시 user.id의 값과 input의 값을 비교
 //로그인 버튼을 클릭시 user.pw의 값과 input의 값을 비교
-
 //두 값이 일치 한다면 다음 페이지(welcome.html)로 이동
 button.addEventListener('click',(e)=>{
   e.preventDefault()
