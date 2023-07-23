@@ -10,47 +10,47 @@ import { getNode, getNodes, attr, clearContents, insertLast, css } from "../lib/
 */
 
 const container = getNode('.container');
+const h1 = getNode('h1')
 const list = getNodes('.container ul li')
 const posterImage = getNode('.visual img')
 
 
+function setNameText(node, index){
+  if (node === 'string') node = getNode(node)
+  node.textContent = data[index-1].name
+}
+
+function setImage(target, index){
+  attr(target, 'alt', data[index-1].alt);
+  attr(target, 'src', `./assets/${data[index-1].name}.jpeg`);
+}
+
+function setBgColor(node, backgroundColor1, backgroundColor2 = '#000'){
+  if (node === 'string') node = getNode(node)
+  css(node,'background',`linear-gradient(to bottom, ${backgroundColor1}, ${backgroundColor2})`)
+}
+
 
 function handleClick(e) {
   e.preventDefault();
-
-  const h1 = getNode('h1')
-  let target = e.target.closest('li');
-  let navImage = e.target.closest('.nav img');
   
-  if(!target || !navImage || !list) return;
+  let target = e.target.closest('li');
+  
+  if(!target || !list) return;
   
   let index = attr(target, 'data-index')
   let backgroundColor1 = data[index-1].color[0]
   let backgroundColor2 = data[index-1].color[1]
 
-  
   list.forEach((item)=>item.classList.remove('is-active'))
   
-  
-  // clearContents('h1')
   target.classList.add('is-active')
   
+  setNameText(h1, index)
+  setImage(posterImage, index)
+  setBgColor('body', backgroundColor1, backgroundColor2)
 
-
-  // insertLast('h1',data[index-1].name)
-  h1.textContent = data[index-1].name
-  attr(posterImage, 'alt', data[index-1].alt);
-  attr(posterImage, 'src', navImage.src);
-  if(!backgroundColor2){
-    css('body','background',`linear-gradient(to bottom, ${backgroundColor1}, #000`)
-  }else{
-    css('body','background',`linear-gradient(to bottom, ${backgroundColor1}, ${backgroundColor2})`)
-  }
 }
-
-
-
-
 
 container.addEventListener('click',handleClick)
 
